@@ -21,12 +21,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={montserrat.className}>
-        <div className="min-h-screen bg-red flex flex-col">
+        <div className=" bg-white flex flex-col text-black">
           <Header />
-          <div className="flex flex-1">
-            <main className="flex-1 p-4 lg:p-8 ml-0 lg:ml-64 transition-all duration-300">
-              {children}
-            </main>
+          <div className="bg-white w-full">
+            <main className="">{children}</main>
           </div>
         </div>
         {/* <Footer /> */}
