@@ -2,7 +2,8 @@
 import { useState, useEffect } from "react";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/Header/Header";
+import "../app/styles/embla.css";
+import Header from "@/components/Header";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -21,9 +22,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={montserrat.className}>
-        <div className=" bg-white flex flex-col text-black">
+        <div className="bg-white flex flex-col text-black min-h-full">
           <Header />
-          <div className="bg-white w-full">
+          <div className="">
             <main className="">{children}</main>
           </div>
         </div>
