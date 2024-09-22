@@ -1,76 +1,96 @@
 "use client";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "./Carousel";
+import { useEffect, useState } from "react";
+import { Card, CardContent } from "./Card";
+import { Carousel, CarouselContent, CarouselItem } from "./Carousel";
+
+import { getJobs } from "@/utils/db/actions";
 
 const LatestJobs = () => {
-  interface Item {
-    imageUrl: string;
-    title: string;
-    subtitle: string;
-    pills: string;
-    url: string;
+  const [jobLists, setJobLists] = useState<any>([]);
+  const [totalJobs, setTotalJobs] = useState<number>(0);
+
+  useEffect(() => {
+    async function fetchImpactData() {
+      try {
+        const jobs = await getJobs(100);
+        const jobsTotal = jobs.length;
+        setTotalJobs(jobsTotal);
+        setJobLists(jobs);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+
+    fetchImpactData();
+  }, []);
+
+  function abbreviateThousands(value: number) {
+    const num = Number(value);
+    const absNum = Math.abs(num);
+    const sign = Math.sign(num);
+    const numLength = Math.round(absNum).toString().length;
+    const symbol = ["K", "M", "B", "T", "Q"];
+    const symbolIndex = Math.floor((numLength - 1) / 3) - 1;
+    const abbrv = symbol[symbolIndex] || symbol[symbol.length - 1];
+    let divisor = 0;
+    if (numLength > 15) divisor = 1e15;
+    else if (numLength > 12) divisor = 1e12;
+    else if (numLength > 9) divisor = 1e9;
+    else if (numLength > 6) divisor = 1e6;
+    else if (numLength > 3) divisor = 1e3;
+    else return num;
+    return `${((sign * absNum) / divisor).toFixed(0)}${abbrv}`;
   }
 
-  const exampleItems: Item[] = [
-    {
-      imageUrl:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/1200px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg",
-      title: "The Starry Night",
-      subtitle: "By Van Gogh",
-      pills: "Oil",
-      url: "https://en.wikipedia.org/wiki/The_Starry_Night",
-    },
-    {
-      imageUrl:
-        "https://upload.wikimedia.org/wikipedia/en/1/14/Picasso_The_Weeping_Woman_Tate_identifier_T05010_10.jpg",
-      title: "The Weeping Woman",
-      subtitle: "By Pablo Picasso",
-      pills: "Oil",
-      url: "https://en.wikipedia.org/wiki/The_Weeping_Woman",
-    },
-    {
-      imageUrl:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Mona_Lisa.jpg/1200px-Mona_Lisa.jpg",
-      title: "Mona Lisa",
-      subtitle: "By Leonardo Da Vinci",
-      pills: "Oil",
-      url: "https://commons.wikimedia.org/wiki/File:Mona_Lisa.jpg",
-    },
-    {
-      imageUrl:
-        "https://upload.wikimedia.org/wikipedia/en/thumb/1/1e/Frida_Kahlo_%28self_portrait%29.jpg/220px-Frida_Kahlo_%28self_portrait%29.jpg",
-      title: "Self-Portrait with Thorn Necklace and Hummingbird",
-      subtitle: "By Frida Kahlo",
-      pills: "Oil",
-      url: "https://en.wikipedia.org/wiki/Self-Portrait_with_Thorn_Necklace_and_Hummingbird",
-    },
-    {
-      imageUrl:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Claude_Monet_-_Springtime_-_Google_Art_Project.jpg/570px-Claude_Monet_-_Springtime_-_Google_Art_Project.jpg",
-      title: "Springtime",
-      subtitle: "By Claude Monet",
-      pills: "Oil",
-      url: "https://en.wikipedia.org/wiki/Springtime_%28Claude_Monet%29",
-    },
-    {
-      imageUrl:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Michelangelo_Buonarroti_-_Archers_shooting_at_a_herm_-_Google_Art_Project.jpg/800px-Michelangelo_Buonarroti_-_Archers_shooting_at_a_herm_-_Google_Art_Project.jpg?20121010203022",
-      title: "Archers shooting at a herm",
-      subtitle: "By Michelangelo",
-      pills: "Red Chalk",
-      url: "https://commons.wikimedia.org/wiki/File:Michelangelo_Buonarroti_-_Archers_shooting_at_a_herm_-_Google_Art_Project.jpg",
-    },
-  ];
-
   return (
-    <div className="px-4 md:px-10 py-10  text-black">
-      latest job
-      <div className=""></div>
+    <div className="px-4 md:px-10 py-10  text-black flex flex-col justify-center items-center ">
+      <span className="text-3xl font-medium">Latest Jobs</span>
+      {totalJobs > 0 ? (
+        <div className="w-full flex py-8">
+          <Carousel
+            opts={{
+              align: "center",
+            }}
+            className="w-full max-w-screen-2xl mx-auto"
+          >
+            <CarouselContent>
+              {jobLists.map((job: any, index: any) => (
+                <CarouselItem
+                  key={index}
+                  className="md:basis-1/2 lg:basis-1/3 xl:basis-1/4 2xl:basis-1/5"
+                >
+                  <div className="flex flex-col justify-center items-center">
+                    <Card className="group w-75 h-80 flex items-top justify-center border-0 bg-orange text-white hover:bg-gray-200 hover:text-orange cursor-pointer rounded-none">
+                      <CardContent className="relative flex flex-col items-start justify-start p-6 leading-6">
+                        <span className="text-xl font-semibold pb-4">
+                          {job.title}
+                        </span>
+                        <span className="text-base font-semibold pb-4 text-left">
+                          {`${job.currency} ${abbreviateThousands(
+                            job.minimumSalary
+                          )} - ${job.currency} ${abbreviateThousands(
+                            job.maximumSalary
+                          )} | ${job.location}`}
+                        </span>
+                        <span className="text-left text-sm group-hover:text-black">
+                          {`${job.description}`}
+                        </span>
+                        <button className="text-sm px-8 py-3 bg-gray-200 text-black border-t-gray-300 border-l-gray-300 absolute bottom-0 right-0 group-hover:text-white group-hover:bg-orange">
+                          APPLY
+                        </button>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+          </Carousel>
+        </div>
+      ) : (
+        <div className="w-full flex justify-center items-center h-96">
+          0 Available Positions
+        </div>
+      )}
     </div>
   );
 };

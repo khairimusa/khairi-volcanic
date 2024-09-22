@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <div>
       <Hero />
-      <div className="pt-[94vh]"></div>
+      <div className="pt-[95vh]"></div>
       <LatestJobs />
     </div>
   );

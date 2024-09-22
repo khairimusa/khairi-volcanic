@@ -1,8 +1,133 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { CHAIN_NAMESPACES, IProvider, WEB3AUTH_NETWORK } from "@web3auth/base";
+import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider";
+import { Web3Auth } from "@web3auth/modal";
+import { createUser, getUserByEmail } from "@/utils/db/actions";
+import { usePathname } from "next/navigation";
 
-function Header() {
+const authClientId = process.env.WEB3_AUTH_CLIENT_ID as string;
+
+const chainConfig = {
+  chainNamespace: CHAIN_NAMESPACES.EIP155,
+  chainId: "0xaa36a7",
+  rpcTarget: "https://rpc.ankr.com/eth_sepolia",
+  displayName: "Ethereum Sepolia Testnet",
+  blockExplorerUrl: "https://sepolia.etherscan.io",
+  ticker: "ETH",
+  tickerName: "Ethereum",
+  logo: "https://cryptologos.cc/logos/ethereum-eth-logo.png",
+};
+
+const privateKeyProvider = new EthereumPrivateKeyProvider({
+  config: { chainConfig },
+});
+
+const web3auth = new Web3Auth({
+  clientId: authClientId,
+  web3AuthNetwork: WEB3AUTH_NETWORK.TESTNET, // Changed from SAPPHIRE_MAINNET to TESTNET
+  privateKeyProvider,
+});
+
+const Header = () => {
+  const [provider, setProvider] = useState<IProvider | null>(null);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [userInfo, setUserInfo] = useState<any>(null);
+  const pathname = usePathname();
+  const isMobile = 768;
+
+  console.log("user info", userInfo);
+
+  useEffect(() => {
+    const init = async () => {
+      try {
+        await web3auth.initModal();
+        setProvider(web3auth.provider);
+
+        if (web3auth.connected) {
+          setLoggedIn(true);
+          const user = await web3auth.getUserInfo();
+          setUserInfo(user);
+          if (user.email) {
+            localStorage.setItem("userEmail", user.email);
+            try {
+              await createUser(user.email, user.name || "Anonymous User");
+            } catch (error) {
+              console.error("Error creating user:", error);
+              // Handle the error appropriately, maybe show a message to the user
+            }
+          }
+        }
+      } catch (error) {
+        console.error("Error initializing Web3Auth:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    init();
+  }, []);
+
+  const login = async () => {
+    console.log("loging in");
+    if (!web3auth) {
+      console.log("web3auth not initialized yet");
+      return;
+    }
+    try {
+      const web3authProvider = await web3auth.connect();
+      setProvider(web3authProvider);
+      setLoggedIn(true);
+      const user = await web3auth.getUserInfo();
+      setUserInfo(user);
+      if (user.email) {
+        localStorage.setItem("userEmail", user.email);
+        try {
+          await createUser(user.email, user.name || "Anonymous User");
+        } catch (error) {
+          console.error("Error creating user:", error);
+          // Handle the error appropriately, maybe show a message to the user
+        }
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+    }
+  };
+
+  const logout = async () => {
+    if (!web3auth) {
+      console.log("web3auth not initialized yet");
+      return;
+    }
+    try {
+      await web3auth.logout();
+      setProvider(null);
+      setLoggedIn(false);
+      setUserInfo(null);
+      localStorage.removeItem("userEmail");
+    } catch (error) {
+      console.error("Error during logout:", error);
+    }
+  };
+
+  const getUserInfo = async () => {
+    if (web3auth.connected) {
+      const user = await web3auth.getUserInfo();
+      setUserInfo(user);
+      if (user.email) {
+        localStorage.setItem("userEmail", user.email);
+        try {
+          await createUser(user.email, user.name || "Anonymous User");
+        } catch (error) {
+          console.error("Error creating user:", error);
+          // Handle the error appropriately, maybe show a message to the user
+        }
+      }
+    }
+  };
+
   const items = [
     { title: "JOBS", href: "google.com" },
     { title: "ABOUT", href: "google.com" },
@@ -46,25 +171,29 @@ function Header() {
             ))}
           </ul>
           <div>
-            <button
-              className="border-l border-t border-b px-8 py-3 bg-white text-black cursor-pointer"
-              aria-expanded="false"
-              type="button"
-            >
-              LOGIN
-            </button>
+            {!userInfo && !loading ? (
+              <button
+                className="border-l border-t border-b px-8 py-3 bg-white text-black cursor-pointer"
+                aria-expanded="false"
+                type="button"
+                onClick={login}
+              >
+                LOGIN
+              </button>
+            ) : null}
             <button
               className="border-orange px-8 py-3 bg-orange text-white cursor-pointer"
               aria-expanded="false"
               type="button"
+              onClick={logout}
             >
-              REGISTER
+              {userInfo ? `LOGOUT` : "REGISTER"}
             </button>
           </div>
         </nav>
       </div>
     </header>
   );
-}
+};
 
 export default Header;
