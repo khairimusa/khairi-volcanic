@@ -21,14 +21,9 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body className={montserrat.className}>
-        <div className="bg-white flex flex-col text-black min-h-full">
-          <Header />
-          <div className="">
-            <main className="">{children}</main>
-          </div>
-        </div>
-        {/* <Footer /> */}
+      <body>
+        <Header />
+        <main>{children}</main>
       </body>
     </html>
   );
