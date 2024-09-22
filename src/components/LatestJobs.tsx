@@ -60,7 +60,7 @@ const LatestJobs = () => {
                   className="md:basis-1/2 lg:basis-1/3 xl:basis-1/4 2xl:basis-1/5"
                 >
                   <div className="flex flex-col justify-center items-center">
-                    <Card className="group w-75 h-80 flex items-top justify-center border-0 bg-orange text-white hover:bg-gray-200 hover:text-orange cursor-pointer rounded-none">
+                    <Card className="select-none group w-75 h-80 flex items-top justify-center border-0 bg-orange text-white hover:bg-gray-200 hover:text-orange cursor-pointer rounded-none">
                       <CardContent className="relative flex flex-col items-start justify-start p-6 leading-6">
                         <span className="text-xl font-semibold pb-4">
                           {job.title}

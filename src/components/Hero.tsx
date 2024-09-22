@@ -47,7 +47,7 @@ function Hero() {
               {Array.from({ length: 10 }).map((_, index) => (
                 <CarouselItem
                   key={index}
-                  className="basis-1/2 md:basis-1/3 lg:basis-1/5"
+                  className="select-none basis-1/2 md:basis-1/3 lg:basis-1/5"
                 >
                   <div className="flex flex-col justify-center items-center gap-4">
                     <Card className="rounded-full w-24 h-24 flex items-center justify-center hover:bg-white hover:text-orange cursor-pointer border-2">
