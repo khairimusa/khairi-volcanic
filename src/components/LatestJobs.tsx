@@ -1,6 +1,11 @@
 "use client";
-import DynamicCarousel from "./Carousel";
-import CarouselCard from "./CarouselCard";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "./Carousel";
 
 const LatestJobs = () => {
   interface Item {
@@ -65,14 +70,7 @@ const LatestJobs = () => {
   return (
     <div className="px-4 md:px-10 py-10  text-black">
       latest job
-      <div className="">
-        <DynamicCarousel
-          itemsData={exampleItems}
-          renderDatum={(dataItem: Item) => {
-            return <CarouselCard key={dataItem.url} data={dataItem} />;
-          }}
-        />
-      </div>
+      <div className=""></div>
     </div>
   );
 };

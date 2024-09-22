@@ -1,5 +1,15 @@
 "use client";
 
+import { Fan } from "lucide-react";
+import { Card, CardContent } from "./Card";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "./Carousel";
+
 function Hero() {
   return (
     <div className="flex flex-col justify-end absolute opacity-80 inset-0 min-h-[110vh] bg-cover bg-center bg-[url(https://upload.wikimedia.org/wikipedia/commons/5/59/Vincent_van_Gogh_-_De_oogst_-_Google_Art_Project.jpg)]">
@@ -24,7 +34,61 @@ function Hero() {
           </div>
         </div>
       </div>
-      <div className="h-48 border flex items-center justify-center">bottom</div>
+
+      <div className="h-48 flex items-center justify-center bg-black bg-opacity-80">
+        <div id="carousel-container" className="w-full flex p-4">
+          <Carousel
+            opts={{
+              align: "center",
+            }}
+            className="w-full max-w-screen-xl mx-auto"
+          >
+            <CarouselContent>
+              {Array.from({ length: 10 }).map((_, index) => (
+                <CarouselItem
+                  key={index}
+                  className="basis-1/2 md:basis-1/3 lg:basis-1/5"
+                >
+                  <div className="flex flex-col justify-center items-center gap-4">
+                    <Card className="rounded-full w-24 h-24 flex items-center justify-center hover:bg-white hover:text-orange cursor-pointer border-2">
+                      <CardContent className="flex items-center justify-center p-6">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width={56}
+                          height={56}
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth={2}
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="lucide lucide-ship-wheel"
+                        >
+                          <circle cx={12} cy={12} r={8} />
+                          <path d="M12 2v7.5" />
+                          <path d="m19 5-5.23 5.23" />
+                          <path d="M22 12h-7.5" />
+                          <path d="m19 19-5.23-5.23" />
+                          <path d="M12 14.5V22" />
+                          <path d="M10.23 13.77 5 19" />
+                          <path d="M9.5 12H2" />
+                          <path d="M10.23 10.23 5 5" />
+                          <circle cx={12} cy={12} r="2.5" />
+                        </svg>
+                      </CardContent>
+                    </Card>
+                    Eiusmod tempor
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <div className="hidden sm:flex">
+              <CarouselPrevious />
+              <CarouselNext />
+            </div>
+          </Carousel>
+        </div>
+      </div>
     </div>
   );
 }
