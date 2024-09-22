@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <div>
       <Hero />
-      <div className="pt-[95vh]"></div>
+      <div className="pt-[95vh] sm:pt-[99vh]"></div>
       <LatestJobs />
       <AboutUs />
       <Testimonials />

@@ -141,14 +141,14 @@ const Header = () => {
   const [links, setLinks] = useState(items);
 
   return (
-    <header className="flex justify-center items-center bg-opacity-0 h-36 relative z-10">
-      <div className="w-full flex justify-between align-middle max-w-[1815px] font-medium">
+    <header className="flex justify-center items-center bg-opacity-0 h-36 relative z-10 px-4">
+      <div className="w-full flex justify-between align-middle max-w-[1815px] font-medium gap-4">
         <a
           href="https://www.volcanic.com/"
           className="flex items-center text-2xl"
           target="_blank"
         >
-          <div className="h-auto w-48 flex items-center">
+          <div className="h-auto max-w-48 flex items-center">
             <img
               className="w-full h-auto object-cover"
               src="https://cdn.prod.website-files.com/5e2b1e2f47a6a2382f62a49a/5f6e49bbb083d36122975c86_integrations-volcanic-768x142-p-500.png"
@@ -156,7 +156,7 @@ const Header = () => {
           </div>
         </a>
         <nav className="flex justify-between gap-10">
-          <ul className="flex flex-row gap-6 text-base items-center">
+          <ul className="hidden xl:flex flex-row gap-6 text-base items-center">
             {links.map((item, index) => (
               <li className="text-white" key={index}>
                 <a
@@ -170,7 +170,8 @@ const Header = () => {
               </li>
             ))}
           </ul>
-          <div>
+
+          <div className="flex flex-col xl:flex-row">
             {!userInfo && !loading ? (
               <button
                 className="border-l border-t border-b px-8 py-3 bg-white text-black cursor-pointer"

@@ -1,3 +1,5 @@
+const defaultTheme = require("tailwindcss/defaultTheme");
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -24,6 +26,9 @@ module.exports = {
         orange: {
           DEFAULT: "#E77C27",
         },
+      },
+      screens: {
+        xs: "400px",
       },
     },
   },

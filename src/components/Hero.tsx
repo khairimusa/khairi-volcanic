@@ -12,8 +12,8 @@ import {
 
 function Hero() {
   return (
-    <div className="flex flex-col justify-end absolute opacity-80 inset-0 min-h-[110vh] bg-cover bg-center bg-[url(https://upload.wikimedia.org/wikipedia/commons/5/59/Vincent_van_Gogh_-_De_oogst_-_Google_Art_Project.jpg)]">
-      <div className="lg:pb-80 pb-52">
+    <div className="flex flex-col justify-end absolute opacity-100 inset-0 min-h-[110vh] bg-cover bg-center bg-[url(https://upload.wikimedia.org/wikipedia/commons/5/59/Vincent_van_Gogh_-_De_oogst_-_Google_Art_Project.jpg)]">
+      <div className="lg:pb-80 xs:pb-56">
         <div className="md:text-6xl text-4xl leading-none font-bold text-white max-w-screen-lg px-4 text-center mx-auto text-wrap">
           Accusantium doloremque quae ab illo
         </div>
