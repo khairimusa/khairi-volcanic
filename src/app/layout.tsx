@@ -1,9 +1,10 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
 import "../app/styles/embla.css";
 import Header from "@/components/Header";
+import { ContextWrapper } from "@/context";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -20,10 +21,12 @@ export default function RootLayout({
   }, []);
 
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-smooth">
       <body className={montserrat.className}>
-        <Header />
-        <main>{children}</main>
+        <ContextWrapper>
+          <Header />
+          <main>{children}</main>
+        </ContextWrapper>
       </body>
     </html>
   );

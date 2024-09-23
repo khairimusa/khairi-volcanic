@@ -1,4 +1,4 @@
-import { Card, CardContent } from "./Card";
+"use client";
 import { Carousel, CarouselContent, CarouselItem } from "./Carousel";
 
 const exampleItems: any[] = [
@@ -54,7 +54,10 @@ const exampleItems: any[] = [
 
 const LatestInsights = () => {
   return (
-    <div className="text-black w-full h-96 flex flex-col justify-start items-center">
+    <div
+      id="insights"
+      className="text-black w-full min-h-96 h-auto py-20 flex flex-col justify-start items-center"
+    >
       <span className="text-3xl font-medium py-4">Latest Insights</span>
 
       <div className="flex items-center justify-center w-full max-w-screen-xl h-full px-4">
