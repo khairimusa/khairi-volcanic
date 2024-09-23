@@ -272,7 +272,7 @@ const Header = () => {
                 <DrawerFooter>
                   {!userInfo && !loading ? (
                     <button
-                      className="focus:ring-4 shadow-lg transform active:scale-x-125 border-l border-t border-b px-8 py-3 bg-white text-black cursor-pointer"
+                      className="focus:ring-4 shadow-lg transform active:scale-x-75 border-l border-t border-b px-8 py-3 bg-white text-black cursor-pointer"
                       aria-expanded="false"
                       type="button"
                       onClick={login}
@@ -281,7 +281,7 @@ const Header = () => {
                     </button>
                   ) : null}
                   <button
-                    className="focus:ring-4 shadow-lg transform active:scale-x-125 border-orange px-8 py-3 bg-orange text-white cursor-pointer"
+                    className="focus:ring-4 shadow-lg transform active:scale-x-75 border-orange px-8 py-3 bg-orange text-white cursor-pointer"
                     aria-expanded="false"
                     type="button"
                     onClick={logout}

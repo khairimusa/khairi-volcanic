@@ -6,8 +6,8 @@ const Footer = () => {
       id="contact-us"
       className="text-black w-full lg:h-64 h-auto flex justify-center items-center bg-[#3C434A]"
     >
-      <div className="w-full max-w-screen-xl h-full text-white flex flex-row justify-center items-center py-12">
-        <div className="w-[30%] border-r h-full flex flex-row justify-left items-center px-4 font-semibold text-xl gap-4">
+      <div className="w-full max-w-screen-xl h-full text-white flex lg:flex-row flex-col justify-center items-center py-12 gap-10">
+        <div className="lg:w-[30%] w-[100%] lg:border-r border-r-0 h-full flex flex-row lg:justify-left justify-center items-center px-4 font-semibold text-xl gap-4">
           Get Social
           <div className="flex flex-row justify-center items-center gap-2">
             <svg
@@ -50,18 +50,18 @@ const Footer = () => {
             </svg>
           </div>
         </div>
-        <div className="w-[70%] h-full flex flex-row justify-evenly items-center px-4 flex-wrap">
-          <div className="flex flex-col justify-start items-center h-full w-1/3 gap-1">
+        <div className="lg:w-[70%] w-[100%] h-full flex lg:flex-row flex-col justify-evenly items-center px-4 gap-10">
+          <div className="flex flex-col justify-start items-center h-full lg:w-1/3 w-full gap-1">
             <Mails width={55} height={55} />
             <span className="text-xl font-medium">EMAIL US</span>
             <span className="text-base font-medium">info@volcanic.com</span>
           </div>
-          <div className="flex flex-col justify-start items-center h-full w-1/3 gap-1">
+          <div className="flex flex-col justify-start items-center h-full lg:w-1/3 w-full gap-1">
             <MessageSquareText width={55} height={55} />
             <span className="text-xl font-medium">GET IN TOUCH</span>
             <span className="text-base font-medium">UK: 0161 217 1417</span>
           </div>
-          <div className="flex flex-col justify-start items-center h-full w-1/3 gap-1">
+          <div className="flex flex-col justify-start items-center h-full lg:w-1/3 w-full gap-1">
             <Map width={55} height={55} />
             <span className="text-xl font-medium">FIND US</span>
             <span className="text-base text-center font-medium">
