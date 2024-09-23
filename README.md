@@ -11,6 +11,7 @@
 - web3auth
 - Globally managed state with useContext hook
 - Fully responsive on mobile, tablet & desktop
+- Jobs fetched from postgres serverless database service called Neon
 
 ## Video Demo
 
