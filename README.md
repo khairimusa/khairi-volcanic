@@ -15,4 +15,4 @@
 ## Video Demo
 
 - [Desktop](https://drive.google.com/file/d/13ovu6ZdfqWQ4dyg1DCYrQ8BuS2oFt94Q/view)
-- [Mobile](https://drive.google.com/file/d/1qqvWnmZcpeYjNMFYjXHRnch2aTH0txn2/view?usp=sharing)
+- [Mobile](https://drive.google.com/file/d/1Ou7qyrR31srBQLOogAuNNWcpwOu5swUe/view?usp=sharing)
